@@ -1,0 +1,58 @@
+.card {
+  position: relative;
+}
+
+.card--flipped .card__front {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+}
+
+.card--flipped .card__back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
+
+/* front of card - the picture */
+.card__front {
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 1em;
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  position: absolute;
+}
+
+.card__front--4x3 {
+  width: 12em;
+  height: 12em;
+}
+.card__front--6x5 {
+  width: 8em;
+  height: 8em;
+}
+.card__front--8x7 {
+  width: 6em;
+  height: 6em;
+}
+
+/* back of card - cover */
+.card__back {
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 1em;
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+}
+
+.card__back--4x3 {
+  width: 12em;
+  height: 12em;
+}
+.card__back--6x5 {
+  width: 8em;
+  height: 8em;
+}
+.card__back--8x7 {
+  width: 6em;
+  height: 6em;
+}
