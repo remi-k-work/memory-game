@@ -5,11 +5,14 @@ import { beginNewTurn, doWeHaveaPair, isThereaMatch, resetChoices, shuffleCards,
 export default function gameReducer(state, action) {
   switch (action.type) {
     case CHOOSE_CARD: {
+      // Destructure the payload
+      const { card, gameDispatch } = action.payload;
+
       // Never mutate the state directly; work on a clone instead
       const stateClone = structuredClone(state);
 
       // We require two choices in order to compare cards, establish, and save either the first or second one
-      stateClone.choiceOne ? (stateClone.choiceTwo = action.payload.card) : (stateClone.choiceOne = action.payload.card);
+      stateClone.choiceOne ? (stateClone.choiceTwo = card) : (stateClone.choiceOne = card);
 
       // Make sure that the same card was not clicked twice - you cannot pair card with itself
       if (wasSameCardClicked2x(stateClone)) {
@@ -42,7 +45,7 @@ export default function gameReducer(state, action) {
           // This turn has ended since two selections were made; begin a new turn
           setTimeout(() => {
             beginNewTurn(stateClone);
-            action.payload.gameDispatch({ type: REFRESH_VIEW });
+            gameDispatch({ type: REFRESH_VIEW });
           }, 1000);
         }
       }
@@ -52,6 +55,9 @@ export default function gameReducer(state, action) {
     }
 
     case NEW_GAME: {
+      // Destructure the payload
+      const { gameDispatch } = action.payload;
+
       // Never mutate the state directly; work on a clone instead
       const stateClone = structuredClone(state);
 
@@ -59,7 +65,7 @@ export default function gameReducer(state, action) {
       stateClone.isPleaseWait = true;
       shuffleCards(stateClone).then(() => {
         stateClone.isPleaseWait = false;
-        return action.payload.gameDispatch({ type: REFRESH_VIEW });
+        return gameDispatch({ type: REFRESH_VIEW });
       });
 
       // Now, replace the old state with a new one
@@ -67,16 +73,19 @@ export default function gameReducer(state, action) {
     }
 
     case CHANGE_DIFFICULTY: {
+      // Destructure the payload
+      const { newDifficulty, gameDispatch } = action.payload;
+
       // Never mutate the state directly; work on a clone instead
       const stateClone = structuredClone(state);
 
-      stateClone.difficulty = action.payload.newDifficulty;
+      stateClone.difficulty = newDifficulty;
 
       // shuffleCards returns a promise; run it asynchronously and refresh the view when it is finished
       stateClone.isPleaseWait = true;
       shuffleCards(stateClone).then(() => {
         stateClone.isPleaseWait = false;
-        return action.payload.gameDispatch({ type: REFRESH_VIEW });
+        return gameDispatch({ type: REFRESH_VIEW });
       });
 
       // Now, replace the old state with a new one
@@ -84,12 +93,15 @@ export default function gameReducer(state, action) {
     }
 
     case CHANGE_COLLECTION: {
+      // Destructure the payload
+      const { newCollection, gameDispatch } = action.payload;
+
       // Never mutate the state directly; work on a clone instead
       const stateClone = structuredClone(state);
 
-      stateClone.collection = action.payload.newCollection;
+      stateClone.collection = newCollection;
 
-      // shuffleCards returns a promise; run it asynchronously and refresh the view when it is finished
+      // Run both fetchAndSave and shuffleCards asynchronously and chain their promises together
       stateClone.isPleaseWait = true;
       fetchAndSave(stateClone.collection)
         .then(() => {
@@ -97,7 +109,7 @@ export default function gameReducer(state, action) {
         })
         .then(() => {
           stateClone.isPleaseWait = false;
-          return action.payload.gameDispatch({ type: REFRESH_VIEW });
+          return gameDispatch({ type: REFRESH_VIEW });
         });
 
       // Now, replace the old state with a new one

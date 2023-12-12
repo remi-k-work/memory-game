@@ -65,6 +65,7 @@ const cardImages8x7 = [
   { src: "/img/animals/zebra-152604_640.png", matched: false },
 ];
 
+// Retrieve the appropriate set of card images from local storage or use the initial fallback set
 export async function getCardImages(difficulty) {
   await waait();
 
@@ -82,6 +83,7 @@ export async function getCardImages(difficulty) {
   }
 }
 
+// Retrieve and save a set of 28 random photos for a given category
 export async function fetchAndSave(collection) {
   // Unfortunately, we must use Pixabay's API twice, the first fetch to obtain the overall number of hits
   const pixabayUrl = generatePixabayUrl(collection);
