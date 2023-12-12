@@ -1,7 +1,16 @@
 // card images
 import { getCardImages } from "./cardImages";
 
-export const initialState = { cards: [], difficulty: 1, turns: 0, choiceOne: null, choiceTwo: null, areDisabled: false, isPleaseWait: false };
+export const initialState = {
+  cards: [],
+  difficulty: 1,
+  collection: "animals",
+  turns: 0,
+  choiceOne: null,
+  choiceTwo: null,
+  areDisabled: false,
+  isPleaseWait: false,
+};
 
 // Shuffle cards
 export async function shuffleCards(stateClone) {

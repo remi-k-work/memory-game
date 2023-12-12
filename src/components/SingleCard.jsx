@@ -4,17 +4,28 @@ import styles from "./SingleCard.module.css";
 // other libraries
 import cn from "classnames";
 
-export default function SingleCard({ card, onCardChoice, difficulty = 1, isFlipped = false, isDisabled = false }) {
-  function handleClick(ev) {
-    if (!isDisabled) {
-      onCardChoice(card);
+// game store
+import { CHOOSE_CARD } from "../js/gameActions";
+
+// game context
+import { useGameState, useGameDispatch } from "../js/GameContext";
+
+export default function SingleCard({ card }) {
+  const { id, src, matched, image } = card;
+  const { difficulty, choiceOne, choiceTwo, areDisabled } = useGameState();
+  const gameDispatch = useGameDispatch();
+
+  // Handle a card click
+  function handleCardClick(ev) {
+    if (!areDisabled) {
+      gameDispatch({ type: CHOOSE_CARD, payload: { card, gameDispatch } });
     }
   }
 
   return (
-    <figure className={isFlipped ? cn(styles["card"], styles["card--flipped"]) : styles["card"]}>
+    <figure className={id === choiceOne?.id || id === choiceTwo?.id || matched ? cn(styles["card"], styles["card--flipped"]) : styles["card"]}>
       <small>
-        <sub>{card.image?.size > 0 ? card.image.size : card.src}</sub>
+        <sub>{image?.size > 0 ? image.size : src}</sub>
         <br />
         <sub>{difficulty}</sub>
       </small>
@@ -27,7 +38,7 @@ export default function SingleCard({ card, onCardChoice, difficulty = 1, isFlipp
             ? cn(styles["card__front"], styles["card__front--6x5"])
             : cn(styles["card__front"], styles["card__front--8x7"])
         }
-        src={card.image?.size > 0 ? URL.createObjectURL(card.image) : card.src}
+        src={image?.size > 0 ? URL.createObjectURL(image) : src}
         width={200}
         height={200}
         alt="card front"
@@ -44,7 +55,7 @@ export default function SingleCard({ card, onCardChoice, difficulty = 1, isFlipp
         width={200}
         height={200}
         alt="card back"
-        onClick={handleClick}
+        onClick={handleCardClick}
       />
     </figure>
   );

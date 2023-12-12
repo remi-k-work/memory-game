@@ -1,4 +1,5 @@
-import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, REFRESH_VIEW } from "./gameActions";
+import { fetchAndSave } from "./cardImages";
+import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION, REFRESH_VIEW } from "./gameActions";
 import { beginNewTurn, doWeHaveaPair, isThereaMatch, resetChoices, shuffleCards, wasSameCardClicked2x } from "./gameState";
 
 export default function gameReducer(state, action) {
@@ -41,7 +42,7 @@ export default function gameReducer(state, action) {
           // This turn has ended since two selections were made; begin a new turn
           setTimeout(() => {
             beginNewTurn(stateClone);
-            action.payload.dispatch({ type: REFRESH_VIEW });
+            action.payload.gameDispatch({ type: REFRESH_VIEW });
           }, 1000);
         }
       }
@@ -58,7 +59,7 @@ export default function gameReducer(state, action) {
       stateClone.isPleaseWait = true;
       shuffleCards(stateClone).then(() => {
         stateClone.isPleaseWait = false;
-        action.payload.dispatch({ type: REFRESH_VIEW });
+        return action.payload.gameDispatch({ type: REFRESH_VIEW });
       });
 
       // Now, replace the old state with a new one
@@ -75,8 +76,29 @@ export default function gameReducer(state, action) {
       stateClone.isPleaseWait = true;
       shuffleCards(stateClone).then(() => {
         stateClone.isPleaseWait = false;
-        action.payload.dispatch({ type: REFRESH_VIEW });
+        return action.payload.gameDispatch({ type: REFRESH_VIEW });
       });
+
+      // Now, replace the old state with a new one
+      return stateClone;
+    }
+
+    case CHANGE_COLLECTION: {
+      // Never mutate the state directly; work on a clone instead
+      const stateClone = structuredClone(state);
+
+      stateClone.collection = action.payload.newCollection;
+
+      // shuffleCards returns a promise; run it asynchronously and refresh the view when it is finished
+      stateClone.isPleaseWait = true;
+      fetchAndSave(stateClone.collection)
+        .then(() => {
+          return shuffleCards(stateClone);
+        })
+        .then(() => {
+          stateClone.isPleaseWait = false;
+          return action.payload.gameDispatch({ type: REFRESH_VIEW });
+        });
 
       // Now, replace the old state with a new one
       return stateClone;

@@ -1,33 +1,30 @@
-// react
-import { useReducer } from "react";
-
 // components
-import SingleCard from "./components/SingleCard";
+import CardGrid from "./components/CardGrid";
 
 // game store
-import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY } from "./js/gameActions";
-import gameReducer from "./js/gameReducer";
-import { initialState } from "./js/gameState";
-import { fetchAndSave } from "./js/cardImages";
+import { NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION } from "./js/gameActions";
+
+// game context
+import { useGameState, useGameDispatch } from "./js/GameContext";
 
 function App() {
-  const [gameState, dispatch] = useReducer(gameReducer, initialState);
-  const { cards, difficulty, turns, choiceOne, choiceTwo, areDisabled, isPleaseWait } = gameState;
-
-  // Handle a card choice
-  function handleCardChoice(card) {
-    dispatch({ type: CHOOSE_CARD, payload: { card, dispatch } });
-  }
+  const { difficulty, collection, turns, isPleaseWait } = useGameState();
+  const gameDispatch = useGameDispatch();
 
   // Handle a new game click
   function handleNewGameClick(ev) {
-    dispatch({ type: NEW_GAME, payload: { dispatch } });
+    gameDispatch({ type: NEW_GAME, payload: { gameDispatch } });
   }
 
   // Handle difficulty change
   function handleDifficultyChange(ev) {
     const newDifficulty = Number(ev.target.value);
-    dispatch({ type: CHANGE_DIFFICULTY, payload: { newDifficulty, dispatch } });
+    gameDispatch({ type: CHANGE_DIFFICULTY, payload: { newDifficulty, gameDispatch } });
+  }
+
+  function handleCollectionChange(ev) {
+    const newCollection = ev.target.value;
+    gameDispatch({ type: CHANGE_COLLECTION, payload: { newCollection, gameDispatch } });
   }
 
   // *** TEST ***
@@ -46,34 +43,46 @@ function App() {
         </dialog>
       )}
       <header>
+        <span>Turns: {turns}</span>
         <label>
-          Difficulty:
+          Difficulty:&nbsp;
           <select name="difficulty" value={difficulty} onChange={handleDifficultyChange}>
             <option value={1}>Easy (4x3)</option>
             <option value={2}>Medium (6x5)</option>
             <option value={3}>Hard (8x7)</option>
           </select>
         </label>
-      </header>
-      <main>
+        <label>
+          Collection:&nbsp;
+          <select name="collection" value={collection} onChange={handleCollectionChange}>
+            <option value={"backgrounds"}>Backgrounds</option>
+            <option value={"fashion"}>Fashion</option>
+            <option value={"nature"}>Nature</option>
+            <option value={"science"}>Science</option>
+            <option value={"education"}>Education</option>
+            <option value={"feelings"}>Feelings</option>
+            <option value={"health"}>Health</option>
+            <option value={"people"}>People</option>
+            <option value={"religion"}>Religion</option>
+            <option value={"places"}>Places</option>
+            <option value={"animals"}>Animals</option>
+            <option value={"industry"}>Industry</option>
+            <option value={"computer"}>Computer</option>
+            <option value={"food"}>Food</option>
+            <option value={"sports"}>Sports</option>
+            <option value={"transportation"}>Transportation</option>
+            <option value={"travel"}>Travel</option>
+            <option value={"buildings"}>Buildings</option>
+            <option value={"business"}>Business</option>
+            <option value={"music"}>Music</option>
+          </select>
+        </label>
         <button type="button" onClick={handleNewGameClick}>
           New Game
         </button>
-        <div className={difficulty === 1 ? "card-grid card-grid--4x3" : difficulty === 2 ? "card-grid card-grid--6x5" : "card-grid card-grid--8x7"}>
-          {cards.map((card) => {
-            return (
-              <SingleCard
-                key={card.id}
-                card={card}
-                onCardChoice={handleCardChoice}
-                difficulty={difficulty}
-                isFlipped={card.id === choiceOne?.id || card.id === choiceTwo?.id || card.matched}
-                isDisabled={areDisabled}
-              />
-            );
-          })}
-        </div>
-        <p>Turns: {turns}</p>
+      </header>
+      <main>
+        <CardGrid />
       </main>
     </>
   );

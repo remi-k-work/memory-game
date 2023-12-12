@@ -15,13 +15,13 @@ export function generateRandomPageNumber(totalHits, pageSize) {
 }
 
 // Generate a suitable URL for the Pixabay API request
-export function generatePixabayUrl() {
+export function generatePixabayUrl(category) {
   const pixabayUrl = new URL("/api/", "https://pixabay.com");
 
   pixabayUrl.searchParams.append("key", import.meta.env.VITE_PIXABAY_KEY);
   // pixabayUrl.searchParams.append("q", "animals");
   pixabayUrl.searchParams.append("image_type", "photo");
-  pixabayUrl.searchParams.append("category", "animals");
+  pixabayUrl.searchParams.append("category", category);
   pixabayUrl.searchParams.append("per_page", 28);
 
   return pixabayUrl;

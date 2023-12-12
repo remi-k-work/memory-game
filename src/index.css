@@ -3,16 +3,23 @@
 /* base styles */
 body {
   font-family: Raleway, sans-serif;
-  margin: 0;
+  margin: 1em;
   font-size: 1rem;
   text-align: center;
   background: #1b1523;
   color: #fff;
 }
 
+header {
+  display: flex;
+  gap: 1em;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 main {
   /* max-width: 860px; */
-  margin: 40px auto;
+  margin: auto;
 }
 
 button {
@@ -29,23 +36,4 @@ button {
 button:hover {
   background: #c23866;
   color: #fff;
-}
-
-.card-grid {
-  margin-top: 1em;
-  display: grid;
-  gap: 1em;
-  place-items: center;
-}
-
-.card-grid--4x3 {
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.card-grid--6x5 {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-
-.card-grid--8x7 {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }

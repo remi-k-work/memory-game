@@ -82,37 +82,9 @@ export async function getCardImages(difficulty) {
   }
 }
 
-export async function testPixabay() {
-  const pixabayUrl = generatePixabayUrl();
-
-  // Get total hits and calculate the random page and fetch again
-  const totalHits = await getPixabayTotalHits(pixabayUrl);
-
-  console.log(totalHits);
-
-  const randomPageNumber = generateRandomPageNumber(totalHits, 28);
-  console.log(randomPageNumber);
-
-  pixabayUrl.searchParams.append("page", randomPageNumber);
-
-  const response = await fetch(pixabayUrl);
-
-  if (!response.ok) {
-    throw new Error("Network response was not OK.");
-  }
-
-  const hits = await response.json();
-
-  console.log(getPixabayRateLimitStatus(response));
-
-  for (const hit of hits.hits) {
-    console.log(hit.webformatURL);
-  }
-}
-
-export async function fetchAndSave() {
+export async function fetchAndSave(collection) {
   // Unfortunately, we must use Pixabay's API twice, the first fetch to obtain the overall number of hits
-  const pixabayUrl = generatePixabayUrl();
+  const pixabayUrl = generatePixabayUrl(collection);
   const totalHits = await getPixabayTotalHits(pixabayUrl);
 
   // We need to be able to retrieve at least 28 images
@@ -163,6 +135,8 @@ export async function fetchAndSaveWithDummyJSON() {
     // Fetch the image itself and convert the response to a blob
     const imageUrl = product.thumbnail;
     const imageBlob = await fetchImageAsBlob(imageUrl);
+
+    // We save that card image blob in "localforage" to avoid permanent image hotlinking
     set8x7.push({ src: imageUrl, matched: false, image: imageBlob });
   }
   localforage.setItem("cardImages8x7", set8x7);
