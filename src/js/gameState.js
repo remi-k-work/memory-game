@@ -4,7 +4,7 @@ import { getCardImages } from "./cardImages";
 export const initialState = {
   cards: [],
   difficulty: 1,
-  collection: "animals",
+  collection: "default",
   turns: 0,
   choiceOne: null,
   choiceTwo: null,

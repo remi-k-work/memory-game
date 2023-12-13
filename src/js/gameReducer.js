@@ -1,5 +1,5 @@
 import { fetchAndSave } from "./cardImages";
-import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION, REFRESH_VIEW } from "./gameActions";
+import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION, REFRESH_VIEW, refreshView } from "./gameActions";
 import { beginNewTurn, doWeHaveaPair, isThereaMatch, resetChoices, shuffleCards, wasSameCardClicked2x } from "./gameState";
 
 export default function gameReducer(state, action) {
@@ -45,7 +45,7 @@ export default function gameReducer(state, action) {
           // This turn has ended since two selections were made; begin a new turn
           setTimeout(() => {
             beginNewTurn(stateClone);
-            gameDispatch({ type: REFRESH_VIEW });
+            gameDispatch(refreshView());
           }, 1000);
         }
       }
@@ -65,7 +65,7 @@ export default function gameReducer(state, action) {
       stateClone.isPleaseWait = true;
       shuffleCards(stateClone).then(() => {
         stateClone.isPleaseWait = false;
-        return gameDispatch({ type: REFRESH_VIEW });
+        return gameDispatch(refreshView());
       });
 
       // Now, replace the old state with a new one
@@ -85,7 +85,7 @@ export default function gameReducer(state, action) {
       stateClone.isPleaseWait = true;
       shuffleCards(stateClone).then(() => {
         stateClone.isPleaseWait = false;
-        return gameDispatch({ type: REFRESH_VIEW });
+        return gameDispatch(refreshView());
       });
 
       // Now, replace the old state with a new one
@@ -109,7 +109,7 @@ export default function gameReducer(state, action) {
         })
         .then(() => {
           stateClone.isPleaseWait = false;
-          return gameDispatch({ type: REFRESH_VIEW });
+          return gameDispatch(refreshView());
         });
 
       // Now, replace the old state with a new one

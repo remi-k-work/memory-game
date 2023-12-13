@@ -2,7 +2,7 @@
 import styles from "./ControlPanel.module.css";
 
 // game store
-import { NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION } from "../js/gameActions";
+import { newGame, changeDifficulty, changeCollection } from "../js/gameActions";
 
 // game context
 import { useGameState, useGameDispatch } from "../js/GameContext";
@@ -13,19 +13,19 @@ export default function ControlPanel() {
 
   // Handle a new game click
   function handleNewGameClick(ev) {
-    gameDispatch({ type: NEW_GAME, payload: { gameDispatch } });
+    gameDispatch(newGame(gameDispatch));
   }
 
   // Handle difficulty change
   function handleDifficultyChange(ev) {
     const newDifficulty = Number(ev.target.value);
-    gameDispatch({ type: CHANGE_DIFFICULTY, payload: { newDifficulty, gameDispatch } });
+    gameDispatch(changeDifficulty(newDifficulty, gameDispatch));
   }
 
   // Handle collection change
   function handleCollectionChange(ev) {
     const newCollection = ev.target.value;
-    gameDispatch({ type: CHANGE_COLLECTION, payload: { newCollection, gameDispatch } });
+    gameDispatch(changeCollection(newCollection, gameDispatch));
   }
 
   return (
@@ -42,6 +42,7 @@ export default function ControlPanel() {
       <label>
         Collection:&nbsp;
         <select name="collection" value={collection} onChange={handleCollectionChange}>
+          <option value={"default"}>Default</option>
           <option value={"backgrounds"}>Backgrounds</option>
           <option value={"fashion"}>Fashion</option>
           <option value={"nature"}>Nature</option>

@@ -5,7 +5,7 @@ import styles from "./SingleCard.module.css";
 import cn from "classnames";
 
 // game store
-import { CHOOSE_CARD } from "../js/gameActions";
+import { chooseCard } from "../js/gameActions";
 
 // game context
 import { useGameState, useGameDispatch } from "../js/GameContext";
@@ -18,7 +18,7 @@ export default function SingleCard({ card }) {
   // Handle a card click
   function handleCardClick(ev) {
     if (!areDisabled) {
-      gameDispatch({ type: CHOOSE_CARD, payload: { card, gameDispatch } });
+      gameDispatch(chooseCard(card, gameDispatch));
     }
   }
 
