@@ -1,6 +1,10 @@
+// game store
 import { fetchAndSave } from "./cardImages";
 import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION, REFRESH_VIEW, refreshView } from "./gameActions";
 import { beginNewTurn, doWeHaveaPair, isThereaMatch, resetChoices, shuffleCards, wasSameCardClicked2x } from "./gameState";
+
+// helpers
+import { delay } from "./helpers";
 
 export default function gameReducer(state, action) {
   switch (action.type) {
@@ -43,10 +47,13 @@ export default function gameReducer(state, action) {
           beginNewTurn(stateClone);
         } else {
           // This turn has ended since two selections were made; begin a new turn
-          setTimeout(() => {
+          stateClone.asyncFunc = async () => {
+            stateClone.asyncFunc = null;
+
+            await delay(1000);
             beginNewTurn(stateClone);
             gameDispatch(refreshView());
-          }, 1000);
+          };
         }
       }
 
@@ -63,10 +70,13 @@ export default function gameReducer(state, action) {
 
       // shuffleCards returns a promise; run it asynchronously and refresh the view when it is finished
       stateClone.isPleaseWait = true;
-      shuffleCards(stateClone).then(() => {
+      stateClone.asyncFunc = async () => {
+        stateClone.asyncFunc = null;
+
+        await shuffleCards(stateClone);
         stateClone.isPleaseWait = false;
-        return gameDispatch(refreshView());
-      });
+        gameDispatch(refreshView());
+      };
 
       // Now, replace the old state with a new one
       return stateClone;
@@ -83,10 +93,13 @@ export default function gameReducer(state, action) {
 
       // shuffleCards returns a promise; run it asynchronously and refresh the view when it is finished
       stateClone.isPleaseWait = true;
-      shuffleCards(stateClone).then(() => {
+      stateClone.asyncFunc = async () => {
+        stateClone.asyncFunc = null;
+
+        await shuffleCards(stateClone);
         stateClone.isPleaseWait = false;
-        return gameDispatch(refreshView());
-      });
+        gameDispatch(refreshView());
+      };
 
       // Now, replace the old state with a new one
       return stateClone;
@@ -103,14 +116,14 @@ export default function gameReducer(state, action) {
 
       // Run both fetchAndSave and shuffleCards asynchronously and chain their promises together
       stateClone.isPleaseWait = true;
-      fetchAndSave(stateClone.collection)
-        .then(() => {
-          return shuffleCards(stateClone);
-        })
-        .then(() => {
-          stateClone.isPleaseWait = false;
-          return gameDispatch(refreshView());
-        });
+      stateClone.asyncFunc = async () => {
+        stateClone.asyncFunc = null;
+
+        await fetchAndSave(stateClone.collection);
+        await shuffleCards(stateClone);
+        stateClone.isPleaseWait = false;
+        gameDispatch(refreshView());
+      };
 
       // Now, replace the old state with a new one
       return stateClone;

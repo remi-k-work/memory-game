@@ -6,88 +6,119 @@ import localforage from "localforage";
 
 // Initial fallback card images set for "Easy (4x3)" difficulty
 const cardImages4x3 = [
-  { src: "/img/animals/animal-47047_640.png", matched: false },
-  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false },
-  { src: "/img/animals/bee-24633_640.png", matched: false },
-  { src: "/img/animals/bird-34663_640.png", matched: false },
-  { src: "/img/animals/bird-295026_640.png", matched: false },
-  { src: "/img/animals/butterfly-2028591_640.png", matched: false },
+  { src: "/img/animals/animal-47047_640.png", matched: false, image: null },
+  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false, image: null },
+  { src: "/img/animals/bee-24633_640.png", matched: false, image: null },
+  { src: "/img/animals/bird-34663_640.png", matched: false, image: null },
+  { src: "/img/animals/bird-295026_640.png", matched: false, image: null },
+  { src: "/img/animals/butterfly-2028591_640.png", matched: false, image: null },
 ];
 
 // Initial fallback card images set for "Medium (6x5)" difficulty
 const cardImages6x5 = [
-  { src: "/img/animals/animal-47047_640.png", matched: false },
-  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false },
-  { src: "/img/animals/bee-24633_640.png", matched: false },
-  { src: "/img/animals/bird-34663_640.png", matched: false },
-  { src: "/img/animals/bird-295026_640.png", matched: false },
-  { src: "/img/animals/butterfly-2028591_640.png", matched: false },
-  { src: "/img/animals/cat-46676_640.png", matched: false },
-  { src: "/img/animals/chicken-159496_640.png", matched: false },
-  { src: "/img/animals/crocodile-1458819_640.png", matched: false },
-  { src: "/img/animals/dog-48490_640.png", matched: false },
-  { src: "/img/animals/dog-3542195_640.png", matched: false },
-  { src: "/img/animals/dolphin-41436_640.png", matched: false },
-  { src: "/img/animals/dragon-310237_640.png", matched: false },
-  { src: "/img/animals/fish-33712_640.png", matched: false },
-  { src: "/img/animals/frog-30524_640.png", matched: false },
+  { src: "/img/animals/animal-47047_640.png", matched: false, image: null },
+  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false, image: null },
+  { src: "/img/animals/bee-24633_640.png", matched: false, image: null },
+  { src: "/img/animals/bird-34663_640.png", matched: false, image: null },
+  { src: "/img/animals/bird-295026_640.png", matched: false, image: null },
+  { src: "/img/animals/butterfly-2028591_640.png", matched: false, image: null },
+  { src: "/img/animals/cat-46676_640.png", matched: false, image: null },
+  { src: "/img/animals/chicken-159496_640.png", matched: false, image: null },
+  { src: "/img/animals/crocodile-1458819_640.png", matched: false, image: null },
+  { src: "/img/animals/dog-48490_640.png", matched: false, image: null },
+  { src: "/img/animals/dog-3542195_640.png", matched: false, image: null },
+  { src: "/img/animals/dolphin-41436_640.png", matched: false, image: null },
+  { src: "/img/animals/dragon-310237_640.png", matched: false, image: null },
+  { src: "/img/animals/fish-33712_640.png", matched: false, image: null },
+  { src: "/img/animals/frog-30524_640.png", matched: false, image: null },
 ];
 
 // Initial fallback card images set for "Hard (8x7)" difficulty
 const cardImages8x7 = [
-  { src: "/img/animals/animal-47047_640.png", matched: false },
-  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false },
-  { src: "/img/animals/bee-24633_640.png", matched: false },
-  { src: "/img/animals/bird-34663_640.png", matched: false },
-  { src: "/img/animals/bird-295026_640.png", matched: false },
-  { src: "/img/animals/butterfly-2028591_640.png", matched: false },
-  { src: "/img/animals/cat-46676_640.png", matched: false },
-  { src: "/img/animals/chicken-159496_640.png", matched: false },
-  { src: "/img/animals/crocodile-1458819_640.png", matched: false },
-  { src: "/img/animals/dog-48490_640.png", matched: false },
-  { src: "/img/animals/dog-3542195_640.png", matched: false },
-  { src: "/img/animals/dolphin-41436_640.png", matched: false },
-  { src: "/img/animals/dragon-310237_640.png", matched: false },
-  { src: "/img/animals/fish-33712_640.png", matched: false },
-  { src: "/img/animals/frog-30524_640.png", matched: false },
-  { src: "/img/animals/giraffe-48393_640.png", matched: false },
-  { src: "/img/animals/hamster_5389261.png", matched: false },
-  { src: "/img/animals/horse-1297225_640.png", matched: false },
-  { src: "/img/animals/koala_3069172.png", matched: false },
-  { src: "/img/animals/ladybug-156624_640.png", matched: false },
-  { src: "/img/animals/lamb-1388937_640.png", matched: false },
-  { src: "/img/animals/parrot-1417286_640.png", matched: false },
-  { src: "/img/animals/penguin-158551_640.png", matched: false },
-  { src: "/img/animals/rat-152162_640.png", matched: false },
-  { src: "/img/animals/tiger-160601_640.png", matched: false },
-  { src: "/img/animals/tiger-161802_640.png", matched: false },
-  { src: "/img/animals/wolf-30695_640.png", matched: false },
-  { src: "/img/animals/zebra-152604_640.png", matched: false },
+  { src: "/img/animals/animal-47047_640.png", matched: false, image: null },
+  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false, image: null },
+  { src: "/img/animals/bee-24633_640.png", matched: false, image: null },
+  { src: "/img/animals/bird-34663_640.png", matched: false, image: null },
+  { src: "/img/animals/bird-295026_640.png", matched: false, image: null },
+  { src: "/img/animals/butterfly-2028591_640.png", matched: false, image: null },
+  { src: "/img/animals/cat-46676_640.png", matched: false, image: null },
+  { src: "/img/animals/chicken-159496_640.png", matched: false, image: null },
+  { src: "/img/animals/crocodile-1458819_640.png", matched: false, image: null },
+  { src: "/img/animals/dog-48490_640.png", matched: false, image: null },
+  { src: "/img/animals/dog-3542195_640.png", matched: false, image: null },
+  { src: "/img/animals/dolphin-41436_640.png", matched: false, image: null },
+  { src: "/img/animals/dragon-310237_640.png", matched: false, image: null },
+  { src: "/img/animals/fish-33712_640.png", matched: false, image: null },
+  { src: "/img/animals/frog-30524_640.png", matched: false, image: null },
+  { src: "/img/animals/giraffe-48393_640.png", matched: false, image: null },
+  { src: "/img/animals/hamster_5389261.png", matched: false, image: null },
+  { src: "/img/animals/horse-1297225_640.png", matched: false, image: null },
+  { src: "/img/animals/koala_3069172.png", matched: false, image: null },
+  { src: "/img/animals/ladybug-156624_640.png", matched: false, image: null },
+  { src: "/img/animals/lamb-1388937_640.png", matched: false, image: null },
+  { src: "/img/animals/parrot-1417286_640.png", matched: false, image: null },
+  { src: "/img/animals/penguin-158551_640.png", matched: false, image: null },
+  { src: "/img/animals/rat-152162_640.png", matched: false, image: null },
+  { src: "/img/animals/tiger-160601_640.png", matched: false, image: null },
+  { src: "/img/animals/tiger-161802_640.png", matched: false, image: null },
+  { src: "/img/animals/wolf-30695_640.png", matched: false, image: null },
+  { src: "/img/animals/zebra-152604_640.png", matched: false, image: null },
 ];
 
-// Verify that the loaded data is consistent and of the correct version (schema wise)
+// Verify that the loaded data is consistent and of the correct version (schema-wise)
 function isDataOK(set4x3, set6x5, set8x7) {
-  if ("src" in set4x3 && "matched" in set4x3 && "src" in set6x5 && "matched" in set6x5 && "src" in set8x7 && "matched" in set8x7) {
-    return true;
-  } else {
-    return false;
+  for (const item of set4x3) {
+    if ("src" in item && "matched" in item && "image" in item) {
+      continue;
+    } else {
+      return false;
+    }
   }
+  for (const item of set6x5) {
+    if ("src" in item && "matched" in item && "image" in item) {
+      continue;
+    } else {
+      return false;
+    }
+  }
+  for (const item of set8x7) {
+    if ("src" in item && "matched" in item && "image" in item) {
+      continue;
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
 
-// Retrieve the appropriate set of card images from local storage or use the initial fallback set
-export async function getCardImages(difficulty) {
-  await waait();
-
+// Get all card image sets from local storage or use the original fallback sets
+async function getState() {
   let set4x3 = (await localforage.getItem("cardImages4x3")) ?? cardImages4x3;
   let set6x5 = (await localforage.getItem("cardImages6x5")) ?? cardImages6x5;
   let set8x7 = (await localforage.getItem("cardImages8x7")) ?? cardImages8x7;
 
-  // Use the initial fallback set if the data is corrupted in any way
+  // Use the initial fallback sets if the data is corrupted in any way
   if (!isDataOK(set4x3, set6x5, set8x7)) {
     set4x3 = cardImages4x3;
     set6x5 = cardImages6x5;
     set8x7 = cardImages8x7;
   }
+
+  return { set4x3, set6x5, set8x7 };
+}
+
+async function setState(set8x7) {
+  await localforage.setItem("cardImages8x7", set8x7);
+  // Slicing up the largest set yields smaller sets
+  await localforage.setItem("cardImages6x5", set8x7.slice(0, 15));
+  await localforage.setItem("cardImages4x3", set8x7.slice(0, 6));
+}
+
+// Depending on the difficulty level, retrieve the appropriate set of card images
+export async function getCardImages(difficulty) {
+  await waait();
+
+  const { set4x3, set6x5, set8x7 } = await getState();
 
   switch (difficulty) {
     case 1:
@@ -133,10 +164,8 @@ export async function fetchAndSave(collection) {
     // We save that card image blob in "localforage" to avoid permanent image hotlinking
     set8x7.push({ src: imageUrl, matched: false, image: imageBlob });
   }
-  await localforage.setItem("cardImages8x7", set8x7);
-  // Slicing up the largest set yields smaller sets
-  await localforage.setItem("cardImages6x5", set8x7.slice(0, 15));
-  await localforage.setItem("cardImages4x3", set8x7.slice(0, 6));
+
+  await setState(set8x7);
 }
 
 export async function fetchAndSaveWithDummyJSON() {
@@ -157,8 +186,6 @@ export async function fetchAndSaveWithDummyJSON() {
     // We save that card image blob in "localforage" to avoid permanent image hotlinking
     set8x7.push({ src: imageUrl, matched: false, image: imageBlob });
   }
-  await localforage.setItem("cardImages8x7", set8x7);
-  // Slicing up the largest set yields smaller sets
-  await localforage.setItem("cardImages6x5", set8x7.slice(0, 15));
-  await localforage.setItem("cardImages4x3", set8x7.slice(0, 6));
+
+  await setState(set8x7);
 }

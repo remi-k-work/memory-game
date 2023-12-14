@@ -7,9 +7,9 @@ import "./index.css";
 import { GameProvider } from "./js/GameContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <GameProvider>
-    <App />
-  </GameProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <GameProvider>
+      <App />
+    </GameProvider>
+  </React.StrictMode>
 );

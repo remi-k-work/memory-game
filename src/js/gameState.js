@@ -10,6 +10,7 @@ export const initialState = {
   choiceTwo: null,
   areDisabled: false,
   isPleaseWait: false,
+  asyncFunc: null,
 };
 
 // Shuffle cards

@@ -7,6 +7,11 @@ export async function waait() {
   });
 }
 
+// Add a delay for a certain time in milliseconds
+export async function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 // Create a random page number based on the overall number of hits and the desired page size
 export function generateRandomPageNumber(totalHits, pageSize) {
   const numberOfPages = Math.ceil(totalHits / pageSize);

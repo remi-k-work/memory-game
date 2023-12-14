@@ -1,5 +1,5 @@
 // react
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 // game store
 import gameReducer from "./gameReducer";
@@ -11,6 +11,14 @@ export const GameDispatchContext = createContext(null);
 
 export function GameProvider({ children }) {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialState);
+
+  useEffect(() => {
+    // Is there any pending asynchronous work? We are unable to execute it directly from a reducer
+    if (gameState.asyncFunc) {
+      // We are also not supposed to dispatch additional actions from a reducer
+      gameState.asyncFunc();
+    }
+  }, [gameState]);
 
   return (
     <GameStateContext.Provider value={gameState}>
