@@ -1,37 +1,8 @@
 // helpers
-import { generateRandomPageNumber, getPixabayTotalHits, generatePixabayUrl, waait, fetchImageAsBlob } from "./helpers";
+import { generateRandomPageNumber, getPixabayTotalHits, generatePixabayUrl, fetchImageAsBlob } from "./helpers";
 
 // other libraries
 import localforage from "localforage";
-
-// Initial fallback card images set for "Easy (4x3)" difficulty
-const cardImages4x3 = [
-  { src: "/img/animals/animal-47047_640.png", matched: false, image: null },
-  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false, image: null },
-  { src: "/img/animals/bee-24633_640.png", matched: false, image: null },
-  { src: "/img/animals/bird-34663_640.png", matched: false, image: null },
-  { src: "/img/animals/bird-295026_640.png", matched: false, image: null },
-  { src: "/img/animals/butterfly-2028591_640.png", matched: false, image: null },
-];
-
-// Initial fallback card images set for "Medium (6x5)" difficulty
-const cardImages6x5 = [
-  { src: "/img/animals/animal-47047_640.png", matched: false, image: null },
-  { src: "/img/animals/baby-elephant-3526681_640.png", matched: false, image: null },
-  { src: "/img/animals/bee-24633_640.png", matched: false, image: null },
-  { src: "/img/animals/bird-34663_640.png", matched: false, image: null },
-  { src: "/img/animals/bird-295026_640.png", matched: false, image: null },
-  { src: "/img/animals/butterfly-2028591_640.png", matched: false, image: null },
-  { src: "/img/animals/cat-46676_640.png", matched: false, image: null },
-  { src: "/img/animals/chicken-159496_640.png", matched: false, image: null },
-  { src: "/img/animals/crocodile-1458819_640.png", matched: false, image: null },
-  { src: "/img/animals/dog-48490_640.png", matched: false, image: null },
-  { src: "/img/animals/dog-3542195_640.png", matched: false, image: null },
-  { src: "/img/animals/dolphin-41436_640.png", matched: false, image: null },
-  { src: "/img/animals/dragon-310237_640.png", matched: false, image: null },
-  { src: "/img/animals/fish-33712_640.png", matched: false, image: null },
-  { src: "/img/animals/frog-30524_640.png", matched: false, image: null },
-];
 
 // Initial fallback card images set for "Hard (8x7)" difficulty
 const cardImages8x7 = [
@@ -66,22 +37,8 @@ const cardImages8x7 = [
 ];
 
 // Verify that the loaded data is consistent and of the correct version (schema-wise)
-function isDataOK(set4x3, set6x5, set8x7) {
-  for (const item of set4x3) {
-    if ("src" in item && "matched" in item && "image" in item) {
-      continue;
-    } else {
-      return false;
-    }
-  }
-  for (const item of set6x5) {
-    if ("src" in item && "matched" in item && "image" in item) {
-      continue;
-    } else {
-      return false;
-    }
-  }
-  for (const item of set8x7) {
+function isDataOK(data) {
+  for (const item of data) {
     if ("src" in item && "matched" in item && "image" in item) {
       continue;
     } else {
@@ -92,33 +49,28 @@ function isDataOK(set4x3, set6x5, set8x7) {
 }
 
 // Get all card image sets from local storage or use the original fallback sets
-async function getState() {
-  let set4x3 = (await localforage.getItem("cardImages4x3")) ?? cardImages4x3;
-  let set6x5 = (await localforage.getItem("cardImages6x5")) ?? cardImages6x5;
+async function loadState() {
   let set8x7 = (await localforage.getItem("cardImages8x7")) ?? cardImages8x7;
 
   // Use the initial fallback sets if the data is corrupted in any way
-  if (!isDataOK(set4x3, set6x5, set8x7)) {
-    set4x3 = cardImages4x3;
-    set6x5 = cardImages6x5;
+  if (!isDataOK(set8x7)) {
     set8x7 = cardImages8x7;
   }
 
+  // Slicing up the largest set yields smaller sets
+  const set4x3 = set8x7.slice(0, 6);
+  const set6x5 = set8x7.slice(0, 15);
   return { set4x3, set6x5, set8x7 };
 }
 
-async function setState(set8x7) {
+// Save the card images set to the local storage (only for "Hard (8x7)" difficulty)
+async function saveState(set8x7) {
   await localforage.setItem("cardImages8x7", set8x7);
-  // Slicing up the largest set yields smaller sets
-  await localforage.setItem("cardImages6x5", set8x7.slice(0, 15));
-  await localforage.setItem("cardImages4x3", set8x7.slice(0, 6));
 }
 
 // Depending on the difficulty level, retrieve the appropriate set of card images
 export async function getCardImages(difficulty) {
-  await waait();
-
-  const { set4x3, set6x5, set8x7 } = await getState();
+  const { set4x3, set6x5, set8x7 } = await loadState();
 
   switch (difficulty) {
     case 1:
@@ -165,7 +117,7 @@ export async function fetchAndSave(collection) {
     set8x7.push({ src: imageUrl, matched: false, image: imageBlob });
   }
 
-  await setState(set8x7);
+  await saveState(set8x7);
 }
 
 export async function fetchAndSaveWithDummyJSON() {
@@ -187,5 +139,5 @@ export async function fetchAndSaveWithDummyJSON() {
     set8x7.push({ src: imageUrl, matched: false, image: imageBlob });
   }
 
-  await setState(set8x7);
+  await saveState(set8x7);
 }

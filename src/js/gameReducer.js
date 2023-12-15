@@ -1,6 +1,6 @@
 // game store
 import { fetchAndSave } from "./cardImages";
-import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION, REFRESH_VIEW, refreshView } from "./gameActions";
+import { CHOOSE_CARD, NEW_GAME, CHANGE_DIFFICULTY, CHANGE_COLLECTION, REFRESH_VIEW, refreshView, LOAD_GAME_STATE } from "./gameActions";
 import { beginNewTurn, doWeHaveaPair, isThereaMatch, resetChoices, shuffleCards, wasSameCardClicked2x } from "./gameState";
 
 // helpers
@@ -8,6 +8,17 @@ import { delay } from "./helpers";
 
 export default function gameReducer(state, action) {
   switch (action.type) {
+    case LOAD_GAME_STATE: {
+      // Destructure the payload
+      const { gameState } = action.payload;
+
+      // Never mutate the state directly; work on a clone instead
+      const stateClone = structuredClone(gameState);
+
+      // Now, replace the old state with a new one
+      return stateClone;
+    }
+
     case CHOOSE_CARD: {
       // Destructure the payload
       const { card, gameDispatch } = action.payload;

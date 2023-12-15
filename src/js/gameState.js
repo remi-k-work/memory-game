@@ -1,6 +1,10 @@
 // card images
 import { getCardImages } from "./cardImages";
 
+// other libraries
+import localforage from "localforage";
+
+// The initial fallback game state
 export const initialState = {
   cards: [],
   difficulty: 1,
@@ -12,6 +16,38 @@ export const initialState = {
   isPleaseWait: false,
   asyncFunc: null,
 };
+
+// Verify that the loaded data is consistent and of the correct version (schema-wise)
+function isDataOK(data) {
+  return (
+    "cards" in data &&
+    "difficulty" in data &&
+    "collection" in data &&
+    "turns" in data &&
+    "choiceOne" in data &&
+    "choiceTwo" in data &&
+    "areDisabled" in data &&
+    "isPleaseWait" in data &&
+    "asyncFunc" in data
+  );
+}
+
+// Load the game state from local storage or use the initial fallback state
+export async function loadState() {
+  let gameState = (await localforage.getItem("gameState")) ?? initialState;
+
+  // Use the initial fallback state if the data is corrupted in any way
+  if (!isDataOK(gameState)) {
+    gameState = initialState;
+  }
+
+  return gameState;
+}
+
+// Save the game state to the local storage
+export async function saveState(gameState) {
+  await localforage.setItem("gameState", gameState);
+}
 
 // Shuffle cards
 export async function shuffleCards(stateClone) {
