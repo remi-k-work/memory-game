@@ -1,0 +1,17 @@
+.please-wait {
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.please-wait dialog {
+  background: rgb(201, 184, 197);
+  border-radius: 1em;
+  padding: 2em 1em;
+  text-align: center;
+  margin: auto;
+}

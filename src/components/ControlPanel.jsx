@@ -34,9 +34,9 @@ export default function ControlPanel() {
       <label>
         Difficulty:&nbsp;
         <select name="difficulty" value={difficulty} onChange={handleDifficultyChange}>
-          <option value={1}>Easy (4x3)</option>
-          <option value={2}>Medium (6x5)</option>
-          <option value={3}>Hard (8x7)</option>
+          <option value={1}>Easy</option>
+          <option value={2}>Medium</option>
+          <option value={3}>Hard</option>
         </select>
       </label>
       <label>

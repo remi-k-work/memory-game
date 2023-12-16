@@ -24,12 +24,6 @@ export default function SingleCard({ card }) {
 
   return (
     <figure className={id === choiceOne?.id || id === choiceTwo?.id || matched ? cn(styles["card"], styles["card--flipped"]) : styles["card"]}>
-      <small>
-        <sub>{image?.size > 0 ? image.size : src}</sub>
-        <br />
-        <sub>{difficulty}</sub>
-      </small>
-
       <img
         className={
           difficulty === 1

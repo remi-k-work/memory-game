@@ -1,23 +1,56 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap");
 
-/* base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* || GENERAL STYLES */
+
+img,
+svg,
+picture,
+video {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+button,
+label,
+input,
+select,
+progress,
+meter,
+textarea {
+  display: block;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
 body {
   font-family: Raleway, sans-serif;
-  margin: 1em;
   font-size: 1rem;
   text-align: center;
   background: #1b1523;
   color: #fff;
-}
-
-main {
-  /* max-width: 860px; */
-  margin: auto;
+  margin: 0;
+  padding: 0;
 }
 
 button {
   background: none;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   padding: 0.5em 1em;
   border-radius: 0.5em;
   color: #fff;
@@ -28,4 +61,18 @@ button {
 button:hover {
   background: #c23866;
   color: #fff;
+}
+
+.main-grid {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1em;
+}
+
+footer {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
 }
