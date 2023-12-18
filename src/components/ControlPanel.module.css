@@ -4,3 +4,12 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+.control-panel__turns {
+  background: none;
+  border: 2px solid #fff;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  color: #fff;
+  font-weight: bold;
+}

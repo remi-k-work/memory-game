@@ -1,5 +1,7 @@
 .card {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .card--flipped .card__front {
@@ -21,19 +23,21 @@
   transition: all ease-in 0.2s;
   position: absolute;
   object-fit: cover;
+  aspect-ratio: auto;
+  width: 100%;
 }
 
 .card__front--4x3 {
-  width: calc(100vw / 4);
   height: calc(100vh / 4);
+  height: calc(100svh / 4);
 }
 .card__front--6x5 {
-  width: calc(100vw / 6);
   height: calc(100vh / 7);
+  height: calc(100svh / 7);
 }
 .card__front--8x7 {
-  width: calc(100vw / 8);
   height: calc(100vh / 10);
+  height: calc(100svh / 10);
 }
 
 /* back of card - cover */
@@ -44,47 +48,49 @@
   transition: all ease-in 0.2s;
   transition-delay: 0.2s;
   object-fit: cover;
+  aspect-ratio: auto;
+  width: 100%;
 }
 
 .card__back--4x3 {
-  width: calc(100vw / 4);
   height: calc(100vh / 4);
+  height: calc(100svh / 4);
 }
 .card__back--6x5 {
-  width: calc(100vw / 6);
   height: calc(100vh / 7);
+  height: calc(100svh / 7);
 }
 .card__back--8x7 {
-  width: calc(100vw / 8);
   height: calc(100vh / 10);
+  height: calc(100svh / 10);
 }
 
 /* || MEDIA QUERIES */
 
 @media screen and (orientation: portrait) {
   .card__front--4x3 {
-    width: calc(100vw / 3);
     height: calc(100vh / 5);
+    height: calc(100svh / 5);
   }
   .card__front--6x5 {
-    width: calc(100vw / 5);
     height: calc(100vh / 9);
+    height: calc(100svh / 9);
   }
   .card__front--8x7 {
-    width: calc(100vw / 7);
     height: calc(100vh / 12);
+    height: calc(100svh / 12);
   }
 
   .card__back--4x3 {
-    width: calc(100vw / 3);
     height: calc(100vh / 5);
+    height: calc(100svh / 5);
   }
   .card__back--6x5 {
-    width: calc(100vw / 5);
     height: calc(100vh / 9);
+    height: calc(100svh / 9);
   }
   .card__back--8x7 {
-    width: calc(100vw / 7);
     height: calc(100vh / 12);
+    height: calc(100svh / 12);
   }
 }

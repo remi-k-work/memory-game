@@ -30,9 +30,9 @@ export default function ControlPanel() {
 
   return (
     <section className={styles["control-panel"]}>
-      <span>Turns: {turns}</span>
+      <span className={styles["control-panel__turns"]}>Turns: {turns}</span>
       <label>
-        Difficulty:&nbsp;
+        <small>Difficulty</small>
         <select name="difficulty" value={difficulty} onChange={handleDifficultyChange}>
           <option value={1}>Easy</option>
           <option value={2}>Medium</option>
@@ -40,7 +40,7 @@ export default function ControlPanel() {
         </select>
       </label>
       <label>
-        Collection:&nbsp;
+        <small>Collection</small>
         <select name="collection" value={collection} onChange={handleCollectionChange}>
           <option value={"default"}>Default</option>
           <option value={"backgrounds"}>Backgrounds</option>
