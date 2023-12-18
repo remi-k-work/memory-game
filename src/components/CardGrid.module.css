@@ -1,5 +1,5 @@
 .card-grid {
-  min-height: 100%;
+  min-block-size: 100%;
   display: grid;
   gap: 1em;
   place-items: center;
