@@ -24,33 +24,8 @@ export default function SingleCard({ card }) {
 
   return (
     <figure className={id === choiceOne?.id || id === choiceTwo?.id || matched ? cn(styles["card"], styles["card--flipped"]) : styles["card"]}>
-      <img
-        className={
-          difficulty === 1
-            ? cn(styles["card__front"], styles["card__front--4x3"])
-            : difficulty === 2
-            ? cn(styles["card__front"], styles["card__front--6x5"])
-            : cn(styles["card__front"], styles["card__front--8x7"])
-        }
-        src={image?.size > 0 ? URL.createObjectURL(image) : src}
-        width={200}
-        height={200}
-        alt="card front"
-      />
-      <img
-        className={
-          difficulty === 1
-            ? cn(styles["card__back"], styles["card__back--4x3"])
-            : difficulty === 2
-            ? cn(styles["card__back"], styles["card__back--6x5"])
-            : cn(styles["card__back"], styles["card__back--8x7"])
-        }
-        src="/img/cover.png"
-        width={200}
-        height={200}
-        alt="card back"
-        onClick={handleCardClick}
-      />
+      <img className={styles["card__front"]} src={image?.size > 0 ? URL.createObjectURL(image) : src} width={200} height={200} alt="card front" />
+      <img className={styles["card__back"]} src="/img/cover.png" width={200} height={200} alt="card back" onClick={handleCardClick} />
     </figure>
   );
 }

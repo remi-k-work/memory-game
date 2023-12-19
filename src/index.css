@@ -48,14 +48,12 @@ body {
   text-align: center;
   background: #1b1523;
   color: #fff;
-  min-inline-size: 100vw;
-  min-inline-size: 100svw;
   min-block-size: 100vh;
   min-block-size: 100svh;
   margin-inline: 0 0;
   margin-block: 0 0;
-  padding-inline: 1em 1em;
-  padding-block: 1em 1em;
+  padding-inline: 0 0;
+  padding-block: 0 0;
 }
 
 button {
@@ -77,8 +75,16 @@ button:hover {
   color: #fff;
 }
 
+#root {
+  min-block-size: 100cqb;
+  display: flex;
+  padding-inline: 1em 1em;
+  padding-block: 1em 1em;
+}
+
 .main-grid {
   min-block-size: 100%;
+  flex: 1;
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 1em;
