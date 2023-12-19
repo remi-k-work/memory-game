@@ -12,7 +12,7 @@ import { useGameState, useGameDispatch } from "../js/GameContext";
 
 export default function SingleCard({ card }) {
   const { id, src, matched, image } = card;
-  const { difficulty, choiceOne, choiceTwo, areDisabled } = useGameState();
+  const { choiceOne, choiceTwo, areDisabled } = useGameState();
   const gameDispatch = useGameDispatch();
 
   // Handle a card click
