@@ -1,3 +1,3 @@
 # Memory Game
 
-Building one of those famous memory games.
+Would you like to enhance your visual memory by putting it to the test? Let us see how many turns it takes you to reveal the entire board. You will be able to select from a wide range of image collections that will always surprise you because they are acquired at random from PixaBay servers. This should increase the game's interest and make it quite unpredictable. When you believe you are improving, try a more difficult level. Keep track of your scores and compare them with your previous ones. Push yourself to the limit and try to beat your best score. Enjoy the challenge and have fun!
